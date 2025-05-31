@@ -1,0 +1,42 @@
+<body>
+  <div class="page-wrapper">
+    <div class="grid-container">
+      @for (item of productos; track item.nombre) {
+      <div class="product-card">
+        <a  [routerLink]="['/Objeto', item.id]" class="product-card__link">
+          <div class="product-card__image-wrapper">
+            <img
+              [src]="item.link"
+              alt="{{ item.nombre}}"
+              class="product-card__image"
+            />
+          </div>
+          <div class="product-card__info">
+            <h3 class="product-card__title">
+              {{ item.nombre }}
+            </h3>
+            <div class="product-card__meta">
+              <span class="product-card__imt">{{ item.precio || 'Consultar precio' }} $</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      }
+    </div>
+
+    @if (productos.length === 0) {
+    <div class="no-results">
+      <div class="no-results-content">
+        <img
+          src="/assets/sad_line.png"
+          alt="Sin resultados"
+          class="no-results-icon"
+        />
+        <p class="no-results-text">Sin resultados</p>
+      </div>
+    </div>
+    }
+
+ 
+  </div>
+</body>

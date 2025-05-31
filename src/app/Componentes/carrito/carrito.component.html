@@ -1,0 +1,30 @@
+<div class="carrito-container">
+  <ul class="capsule-list">
+    @for(item of carrito ; track $index ; let i = $index) {
+    <li class="capsule">
+      <img
+        class="product-img"
+        src="{{ item.link || '' }}"
+        alt="{{ item.nombre }}"
+      />
+
+      <div class="info-product">
+        <h3 class="product-title">{{ item.nombre }}</h3>
+      </div>
+      <div class="product-price">
+        <span class="price">{{ item.precio || 'Consultar precio' }} $</span>
+      </div>
+      <button
+        class="remove-button"
+        (click)="eliminarproducto(i)"
+        aria-label="Eliminar producto del carrito"
+      ></button>
+    </li>
+    }
+  </ul>
+
+  <button (click)="clickboton()" class="boton-carrito">
+    Confirmar Solicitud
+  </button>
+
+</div>

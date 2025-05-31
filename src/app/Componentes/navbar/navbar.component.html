@@ -1,0 +1,46 @@
+<nav
+  class="navbar-container"
+  [class.open]="showUserMenu()"
+  role="navigation"
+  aria-label="Main navigation"
+>
+  <div class="left-section">
+    <button
+      type="button"
+      class="icon-button home-button"
+      aria-label="Ir a inicio"
+      (click)="botonhome()"
+    >
+      <i class="fas fa-home"></i>
+    </button>
+  </div>
+ 
+  <div class="right-section">
+    <button
+      type="button"
+      class="icon-button cart-button"
+      aria-label="Mostrar carrito"
+      (click)="mostrarcarrito()"
+    >
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-count">{{ totalproductos() }}</span>
+    </button>
+    <div class="user-menu">
+      <div class="user-circle" (click)="toggleUserMenu()">
+        <i class="fas fa-user"></i>
+      </div>
+
+      @if(showUserMenu()) {
+       <app-usuario-previo
+        [showUserMenu]="showUserMenu"
+        ></app-usuario-previo>
+      }
+    </div>
+  </div>
+</nav>
+
+<!-- Aquí integramos el panel del carrito -->
+@if (showCarrito()) {
+
+
+}
