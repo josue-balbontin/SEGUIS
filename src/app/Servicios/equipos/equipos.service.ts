@@ -30,8 +30,6 @@ export class EquiposService {
       estado: true,
       precio: 2.5
     }
-
-
   ];
 
   constructor() { }
