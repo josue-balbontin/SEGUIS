@@ -16,7 +16,6 @@ export class PedidosService {
     this.arbolHistorial = new ArbolBinarioHistorial();
     this.hashMapPedidos = new HashMapPedidos();
   }
-
   crearPedido(cliente: string, ciudadDestino: string, equipos: Equipos[]): Pedido {
     this.contadorPedidos++;
     
@@ -26,8 +25,9 @@ export class PedidosService {
       numero: this.contadorPedidos,
       cliente,
       ciudadDestino,
-      fechaPedido: new Date(),
+      fecha: new Date(),
       entregado: false,
+      estado: 'Pendiente',
       equipos,
       total
     };
@@ -50,12 +50,59 @@ export class PedidosService {
   obtenerPedidosPorCiudad(ciudad: string): Pedido[] {
     return this.hashMapPedidos.obtenerPedidosCiudad(ciudad);
   }
-
   procesarSiguientePedido(ciudad: string): Pedido | null {
-    return this.hashMapPedidos.procesarSiguientePedido(ciudad);
+    const pedido = this.hashMapPedidos.procesarSiguientePedido(ciudad);
+    if (pedido) {
+      pedido.estado = 'Entregado';
+    }
+    return pedido;
   }
-
   buscarPedidosPorCliente(cliente: string): Pedido[] {
     return this.arbolHistorial.buscarPorCliente(cliente);
+  }
+
+  // Métodos adicionales para el componente
+  obtenerCiudadesValidas(): string[] {
+    return this.hashMapPedidos.obtenerCiudades();
+  }
+
+  buscarCiudadPorPedido(numeroPedido: number): string | null {
+    return this.hashMapPedidos.buscarCiudadPorPedido(numeroPedido);
+  }
+
+  obtenerEstadisticasPorCiudad(): any[] {
+    const ciudades = this.obtenerCiudadesValidas();
+    return ciudades.map(ciudad => {
+      const pedidosCiudad = this.hashMapPedidos.obtenerTodosPedidosCiudad(ciudad);
+      const pendientes = pedidosCiudad.filter((p: Pedido) => !p.entregado).length;
+      const entregados = pedidosCiudad.filter((p: Pedido) => p.entregado).length;
+      const ingresos = pedidosCiudad
+        .filter((p: Pedido) => p.entregado)
+        .reduce((sum, p) => sum + (p.total || 0), 0);
+      
+      return {
+        ciudad,
+        total: pedidosCiudad.length,
+        pendientes,
+        entregados,
+        ingresos
+      };
+    });
+  }
+
+  obtenerResumenSistema(): any {
+    const todosPedidos = this.obtenerTodosPedidosOrdenados();
+    const pedidosPendientes = todosPedidos.filter((p: Pedido) => !p.entregado).length;
+    const pedidosEntregados = todosPedidos.filter((p: Pedido) => p.entregado).length;
+    const ingresosTotales = todosPedidos
+      .filter((p: Pedido) => p.entregado)
+      .reduce((sum, p) => sum + (p.total || 0), 0);
+
+    return {
+      totalPedidos: todosPedidos.length,
+      pedidosPendientes,
+      pedidosEntregados,
+      ingresosTotales
+    };
   }
 }
