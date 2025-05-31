@@ -1,0 +1,196 @@
+<div class="formulario-overlay">
+  <div class="formulario-container">
+    <div class="formulario-header">
+      <h2>Formulario de Compra</h2>
+      <button type="button" class="close-btn" (click)="cerrarFormulario()">×</button>
+    </div>
+    
+    <form #compraForm="ngForm" class="formulario-content" (ngSubmit)="onSubmit(compraForm)">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          name="nombre" 
+          [(ngModel)]="nombre" 
+          required 
+          class="form-control"
+          placeholder="Ingrese su nombre">
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input 
+          type="text" 
+          id="apellido" 
+          name="apellido" 
+          [(ngModel)]="apellido" 
+          required 
+          class="form-control"
+          placeholder="Ingrese su apellido">
+      </div>      <div class="form-group">
+        <label for="ciudad">Ciudad de Envío:</label>
+        <select 
+          id="ciudad" 
+          name="ciudad" 
+          [(ngModel)]="ciudad" 
+          required 
+          class="form-control">
+          <option value="">Seleccione una ciudad</option>
+          <option *ngFor="let envio of envios" [value]="envio">{{ envio }}</option>
+        </select>
+      </div>      <div class="form-group">
+        <label for="metodoPago">Método de Pago:</label>
+        <select 
+          id="metodoPago" 
+          name="metodoPago" 
+          [(ngModel)]="metodoPago" 
+          required 
+          class="form-control">
+          <option value="">Seleccione un método de pago</option>
+          <option *ngFor="let metodo of metodosPago" [value]="metodo">{{ metodo }}</option>
+        </select>
+      </div>
+
+      <!-- Simulador de pago - Tarjetas -->
+      @if(metodoPago === 'Tarjeta de Crédito' || metodoPago === 'Tarjeta de Débito') {
+        <div class="payment-simulator">
+          <h4>Datos de la Tarjeta</h4>
+          <div class="form-group">
+            <label for="numeroTarjeta">Número de Tarjeta:</label>
+            <input 
+              type="text" 
+              id="numeroTarjeta" 
+              name="numeroTarjeta" 
+              [(ngModel)]="numeroTarjeta" 
+              required 
+              class="form-control"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+              <input 
+                type="text" 
+                id="fechaVencimiento" 
+                name="fechaVencimiento" 
+                [(ngModel)]="fechaVencimiento" 
+                required 
+                class="form-control"
+                placeholder="MM/AA"
+                maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV:</label>
+              <input 
+                type="text" 
+                id="cvv" 
+                name="cvv" 
+                [(ngModel)]="cvv" 
+                required 
+                class="form-control"
+                placeholder="123"
+                maxlength="3">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nombreTitular">Nombre del Titular:</label>
+            <input 
+              type="text" 
+              id="nombreTitular" 
+              name="nombreTitular" 
+              [(ngModel)]="nombreTitular" 
+              required 
+              class="form-control"
+              placeholder="Nombre como aparece en la tarjeta">
+          </div>
+        </div>
+      }
+
+      <!-- Simulador PayPal -->
+      @if(metodoPago === 'PayPal') {
+        <div class="payment-simulator">
+          <h4>Datos de PayPal</h4>
+          <div class="form-group">
+            <label for="emailPayPal">Email de PayPal:</label>
+            <input 
+              type="email" 
+              id="emailPayPal" 
+              name="emailPayPal" 
+              [(ngModel)]="emailPayPal" 
+              required 
+              class="form-control"
+              placeholder="usuario@ejemplo.com">
+          </div>
+        </div>
+      }
+
+      <!-- Simulador Transferencia Bancaria -->
+      @if(metodoPago === 'Transferencia Bancaria') {
+        <div class="payment-simulator">
+          <h4>Datos Bancarios</h4>
+          <div class="form-group">
+            <label for="numeroCuenta">Número de Cuenta:</label>
+            <input 
+              type="text" 
+              id="numeroCuenta" 
+              name="numeroCuenta" 
+              [(ngModel)]="numeroCuenta" 
+              required 
+              class="form-control"
+              placeholder="1234567890123456">
+          </div>
+          <div class="bank-info">
+            <p><strong>Banco de destino:</strong> Banco Nacional de Bolivia</p>
+            <p><strong>Cuenta:</strong> 123-456-789</p>
+          </div>
+        </div>
+      }      <!-- Simulador QR Boliviano -->
+      @if(metodoPago === 'QR Boliviano') {
+        <div class="payment-simulator">
+          <h4>Pago con QR</h4>
+          <div class="qr-container">
+            <div class="qr-placeholder">
+              <p>📱 Escanea el código QR</p>
+              <div class="qr-image-container">
+                <img src="/qr.png" alt="Código QR para pago" class="qr-image">
+                <p class="qr-description">Código QR </p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="codigoQR">Código de confirmación:</label>
+            <input 
+              type="text" 
+              id="codigoQR" 
+              name="codigoQR" 
+              [(ngModel)]="codigoQR" 
+              required 
+              class="form-control"
+              placeholder="Ingrese el código de confirmación">
+          </div>
+        </div>
+      }
+
+      <!-- Pago contra entrega -->
+      @if(metodoPago === 'Pago contra entrega') {
+        <div class="payment-simulator">
+          <h4>Pago contra entrega</h4>
+          <div class="payment-info">
+            <p>💰 Pagarás cuando recibas el producto</p>
+            <p>🚚 El repartidor cobrará el monto total en efectivo</p>
+            <p>📍 Asegúrate de estar en la dirección de entrega</p>
+          </div>
+        </div>
+      }<div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!compraForm.valid" (click)="confirmarCompra()">
+          Confirmar Compra
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
