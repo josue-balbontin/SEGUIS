@@ -29,5 +29,6 @@ export class NavbarComponent {
 
   mostrarcarrito() {
     this.router.navigate(['/Carrito']);
+    this.showCarrito.set(!this.showCarrito());
   }
 }

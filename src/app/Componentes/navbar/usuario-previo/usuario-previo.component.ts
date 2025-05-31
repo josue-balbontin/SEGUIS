@@ -18,14 +18,9 @@ export class UsuarioPrevioComponent {
   }
 
     seleccionar(item: string) {
-       if(item=='perfil'){
-       this.router.navigate(["/Perfil"])
-      }
-      else if(item=='historial'){
-        this.router.navigate(["/Historial"])
-      }
-      else if(item=='admin'){
-        this.router.navigate(["/admin"])
+      if(item=='admin'){
+        this.router.navigate(["/Admin"])
+        
       } 
       this.showUserMenu.set(false); 
   }
