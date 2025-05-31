@@ -1,1 +1,321 @@
-<p>pedidos works!</p>
+<div class="pedidos-container">
+  <!-- Navegación de pestañas -->
+  <div class="nav-tabs">
+    <button 
+      class="tab-button"
+      [class.active]="vistaActual === 'registrar'"
+      (click)="cambiarVista('registrar')">
+      📝 Nuevo Pedido
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="vistaActual === 'historial'"
+      (click)="cambiarVista('historial')">
+      📋 Historial de Pedidos
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="vistaActual === 'colas'"
+      (click)="cambiarVista('colas')">
+      🚚 Colas de Entrega
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="vistaActual === 'buscar'"
+      (click)="cambiarVista('buscar')">
+      🔍 Buscar Pedidos
+    </button>
+    <button 
+      class="tab-button"
+      [class.active]="vistaActual === 'estadisticas'"
+      (click)="cambiarVista('estadisticas')">
+      📊 Estadísticas
+    </button>
+  </div>
+
+  <!-- Mensajes de éxito y error -->
+  <div class="messages" *ngIf="mensajeExito || mensajeError">
+    <div class="success-message" *ngIf="mensajeExito">
+      ✅ {{mensajeExito}}
+    </div>
+    <div class="error-message" *ngIf="mensajeError">
+      ❌ {{mensajeError}}
+    </div>
+  </div>
+
+  <!-- VISTA 1: REGISTRAR NUEVO PEDIDO -->
+  <div class="tab-content" *ngIf="vistaActual === 'registrar'">
+    <div class="section-card">
+      <h2>📝 Registrar Nuevo Pedido</h2>
+      <form class="pedido-form" (ngSubmit)="registrarPedido()">
+        
+        <!-- Información del cliente -->
+        <div class="form-group">
+          <label for="cliente">Cliente:</label>
+          <input 
+            type="text" 
+            id="cliente"
+            [(ngModel)]="nuevoPedido.cliente"
+            name="cliente"
+            placeholder="Nombre del cliente"
+            required>
+        </div>
+
+        <!-- Selección de ciudad -->
+        <div class="form-group">
+          <label for="ciudad">Ciudad de destino:</label>
+          <select 
+            id="ciudad"
+            [(ngModel)]="nuevoPedido.ciudadDestino"
+            name="ciudad"
+            required>
+            <option value="">Seleccione una ciudad</option>
+            <option *ngFor="let ciudad of ciudadesValidas" [value]="ciudad">
+              {{ciudad}}
+            </option>
+          </select>
+        </div>
+
+        <!-- Selección de equipos -->
+        <div class="form-group">
+          <label>Equipos a incluir:</label>
+          <div class="equipos-grid">
+            <div 
+              *ngFor="let equipo of equiposDisponibles"
+              class="equipo-item"
+              [class.selected]="isEquipoSeleccionado(equipo.id)"
+              (click)="toggleEquipoSeleccion(equipo.id)">
+              
+              <div class="equipo-checkbox">
+                <input 
+                  type="checkbox"
+                  [checked]="isEquipoSeleccionado(equipo.id)"
+                  (change)="toggleEquipoSeleccion(equipo.id)">
+              </div>
+              
+              <div class="equipo-info">
+                <h4>{{equipo.nombre}}</h4>
+                <p class="equipo-marca">{{equipo.marca}}</p>
+                <p class="equipo-precio">${{equipo.precio | number:'1.2-2'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total del pedido -->
+        <div class="total-section" *ngIf="nuevoPedido.equiposSeleccionados.length > 0">
+          <h3>Total: ${{obtenerTotalPedido() | number:'1.2-2'}}</h3>
+          <p>{{nuevoPedido.equiposSeleccionados.length}} equipo(s) seleccionado(s)</p>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Registrar Pedido</button>
+          <button type="button" class="btn-secondary" (click)="limpiarFormulario()">Limpiar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- VISTA 2: HISTORIAL DE PEDIDOS -->
+  <div class="tab-content" *ngIf="vistaActual === 'historial'">
+    <div class="section-card">
+      <h2>📋 Historial de Pedidos (Ordenado por Número)</h2>
+      
+      <div class="filters">
+        <input 
+          type="text"
+          [(ngModel)]="clienteBusqueda"
+          placeholder="Buscar por cliente..."
+          class="search-input">
+        <button class="btn-secondary" (click)="buscarPedidosPorCliente()">Buscar</button>
+        <button class="btn-secondary" (click)="clienteBusqueda = ''; actualizarVistas()">Ver Todos</button>
+      </div>
+
+      <div class="table-container" *ngIf="todosPedidos.length > 0">
+        <table class="pedidos-table">
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Cliente</th>
+              <th>Ciudad</th>
+              <th>Equipos</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of todosPedidos" [class.entregado]="pedido.estado === 'Entregado'">
+              <td class="numero-pedido">#{{pedido.numero}}</td>
+              <td>{{pedido.cliente}}</td>
+              <td>{{pedido.ciudadDestino}}</td>
+              <td class="equipos-cell">{{obtenerEquiposPedido(pedido)}}</td>
+              <td class="precio-cell">${{pedido.total | number:'1.2-2'}}</td>
+              <td>
+                <span class="estado-badge" [class]="pedido.estado.toLowerCase()">
+                  {{pedido.estado}}
+                </span>
+              </td>
+              <td>{{formatearFecha(pedido.fecha)}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" *ngIf="todosPedidos.length === 0">
+        <p>No hay pedidos registrados</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA 3: COLAS DE ENTREGA POR CIUDAD -->
+  <div class="tab-content" *ngIf="vistaActual === 'colas'">
+    <div class="section-card">
+      <h2>🚚 Gestión de Entregas por Ciudad</h2>
+      
+      <div class="ciudad-selector">
+        <label for="ciudadCola">Seleccionar ciudad:</label>
+        <select 
+          id="ciudadCola"
+          [(ngModel)]="ciudadSeleccionada"
+          (change)="actualizarColaCiudad()">
+          <option *ngFor="let ciudad of ciudadesValidas" [value]="ciudad">
+            {{ciudad}}
+          </option>
+        </select>
+      </div>
+
+      <div class="cola-actions">
+        <button 
+          class="btn-primary"
+          (click)="procesarSiguienteEntrega()"
+          [disabled]="pedidosPorCiudad.length === 0">
+          ✅ Procesar Siguiente Entrega
+        </button>
+        <p class="queue-info">
+          {{pedidosPorCiudad.length}} pedido(s) en cola para {{ciudadSeleccionada}}
+        </p>
+      </div>
+
+      <div class="queue-container" *ngIf="pedidosPorCiudad.length > 0">
+        <h3>Cola de entrega para {{ciudadSeleccionada}}</h3>
+        <div class="queue-items">
+          <div 
+            *ngFor="let pedido of pedidosPorCiudad; let i = index"
+            class="queue-item"
+            [class.next-delivery]="i === 0">
+            
+            <div class="queue-position">
+              <span class="position-number">{{i + 1}}</span>
+              <span class="next-label" *ngIf="i === 0">SIGUIENTE</span>
+            </div>
+            
+            <div class="pedido-details">
+              <h4>Pedido #{{pedido.numero}}</h4>
+              <p><strong>Cliente:</strong> {{pedido.cliente}}</p>
+              <p><strong>Equipos:</strong> {{obtenerEquiposPedido(pedido)}}</p>
+              <p><strong>Total:</strong> ${{pedido.total | number:'1.2-2'}}</p>
+              <p><strong>Fecha:</strong> {{formatearFecha(pedido.fecha)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-queue" *ngIf="pedidosPorCiudad.length === 0">
+        <p>No hay pedidos pendientes para {{ciudadSeleccionada}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA 4: BUSCAR PEDIDOS -->
+  <div class="tab-content" *ngIf="vistaActual === 'buscar'">
+    <div class="section-card">
+      <h2>🔍 Buscar Pedidos</h2>
+      
+      <div class="search-section">
+        <h3>Buscar por número de pedido</h3>
+        <div class="search-form">
+          <input 
+            type="number"
+            [(ngModel)]="numeroBusqueda"
+            placeholder="Número de pedido"
+            min="1">
+          <button class="btn-primary" (click)="buscarPedidoPorNumero()">Buscar</button>
+        </div>
+
+        <div class="search-result" *ngIf="pedidoEncontrado">
+          <div class="result-card">
+            <h4>Pedido #{{pedidoEncontrado.numero}} encontrado</h4>
+            <div class="result-details">
+              <p><strong>Cliente:</strong> {{pedidoEncontrado.cliente}}</p>
+              <p><strong>Ciudad:</strong> {{ciudadPedido}}</p>
+              <p><strong>Estado:</strong> 
+                <span class="estado-badge" [class]="pedidoEncontrado.estado.toLowerCase()">
+                  {{pedidoEncontrado.estado}}
+                </span>
+              </p>
+              <p><strong>Equipos:</strong> {{obtenerEquiposPedido(pedidoEncontrado)}}</p>
+              <p><strong>Total:</strong> ${{pedidoEncontrado.total | number:'1.2-2'}}</p>
+              <p><strong>Fecha:</strong> {{formatearFecha(pedidoEncontrado.fecha)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA 5: ESTADÍSTICAS -->
+  <div class="tab-content" *ngIf="vistaActual === 'estadisticas'">
+    <div class="section-card">
+      <h2>📊 Estadísticas del Sistema</h2>
+      
+      <!-- Resumen general -->
+      <div class="stats-overview">
+        <div class="stat-card">
+          <h3>{{resumenSistema.totalPedidos || 0}}</h3>
+          <p>Total de Pedidos</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{resumenSistema.pedidosPendientes || 0}}</h3>
+          <p>Pedidos Pendientes</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{resumenSistema.pedidosEntregados || 0}}</h3>
+          <p>Pedidos Entregados</p>
+        </div>
+        <div class="stat-card">
+          <h3>${{resumenSistema.ingresosTotales | number:'1.2-2'}}</h3>
+          <p>Ingresos Totales</p>
+        </div>
+      </div>
+
+      <!-- Estadísticas por ciudad -->
+      <div class="city-stats">
+        <h3>Pedidos por Ciudad</h3>
+        <div class="city-stats-grid">
+          <div 
+            *ngFor="let ciudadStat of estadisticasCiudades"
+            class="city-stat-card">
+            <h4>{{ciudadStat.ciudad}}</h4>
+            <div class="city-numbers">
+              <p><strong>Total:</strong> {{ciudadStat.total}}</p>
+              <p><strong>Pendientes:</strong> {{ciudadStat.pendientes}}</p>
+              <p><strong>Entregados:</strong> {{ciudadStat.entregados}}</p>
+              <p><strong>Ingresos:</strong> ${{ciudadStat.ingresos | number:'1.2-2'}}</p>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill"
+                [style.width.%]="ciudadStat.total > 0 ? (ciudadStat.entregados / ciudadStat.total) * 100 : 0">
+              </div>
+            </div>
+            <p class="completion-rate">
+              {{ciudadStat.total > 0 ? ((ciudadStat.entregados / ciudadStat.total) * 100).toFixed(1) : 0}}% completado
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

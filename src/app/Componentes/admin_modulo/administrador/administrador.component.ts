@@ -1,12 +1,11 @@
 import { Component, createNgModuleRef } from '@angular/core';
 import {Router} from '@angular/router';
-import { SidebardComponent } from '../../sidebard/sidebard.component';
 import { PedidosComponent } from '../tablas/pedidos/pedidos.component';
 
 @Component({
   selector: 'app-administrador',
   standalone: true,
-  imports: [SidebardComponent , PedidosComponent],
+  imports: [PedidosComponent],
   templateUrl: './administrador.component.html',
   styleUrls: ['./administrador.component.css']
 })
