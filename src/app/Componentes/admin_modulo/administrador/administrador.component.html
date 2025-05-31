@@ -1,0 +1,13 @@
+
+
+<div class="container">
+  <app-sidebard
+  [contenido]="tablas"
+  (item)="clickitem($event)"
+></app-sidebard>
+
+  @if(item=='Pedidos'){
+    <app-pedidos></app-pedidos>
+  }
+
+</div>

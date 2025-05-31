@@ -1,0 +1,161 @@
+.navbar-container {
+  overflow: visible;
+  flex-wrap: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 9rem;
+  min-height: 70px;
+  transition: padding-bottom 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar-container.open {
+  padding-bottom: 2rem;
+}
+
+.navbar-container.open .user-dropdown {
+  opacity: 1;
+}
+
+.navbar-container.open .user-dropdown,
+.user-menu.open .user-dropdown {
+  opacity: 1;
+  visibility: visible;
+}
+
+body {
+  margin: 0;
+  padding-top: 70px;
+}
+
+.navbar-container img:not(.logo-image) {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.navbar-container .logo-image {
+  opacity: 1;
+}
+
+.left-section,
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-button {
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Manrope";
+  color: #5f6368;
+}
+
+.icon-image {
+  width: 20px;
+  height: 20px;
+}
+
+.logo-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo-image {
+  width: 50px;
+  height: auto;
+}
+
+.cart-button {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  background: #ffdd05;
+  color: #333;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 0;
+  text-align: center;
+  transition: background-color 0.2s, color 0.2s;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cart-count {
+  pointer-events: none;
+}
+
+.cart-button:hover .cart-count {
+  background-color: #8f9195;
+  color: #ffcf00;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-menu.open .user-dropdown {
+  max-height: 500px;
+}
+
+.user-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.user-circle:hover {
+  background-color: #FFDD05;
+  transform: scale(1.05);
+}
+
+.user-circle i {
+  font-size: 1.1rem;
+  color: #5f6368;
+  transition: color 0.3s ease;
+}
+
+.user-circle:hover i {
+  color: #333;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item i {
+  width: 25px;
+}
+
+/* Mantener estilos existentes del logo */
+.logo-image {
+  width: 90px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}

@@ -1,0 +1,26 @@
+.container {
+  padding-top: 90px; /* Space for the fixed navbar */
+  min-height: calc(100vh - 90px);
+  width: 100%;
+}
+
+/* Ensure the navbar component stays fixed */
+app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Reset any default margins/padding that might interfere */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
