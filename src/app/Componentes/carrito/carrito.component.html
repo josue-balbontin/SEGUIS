@@ -1,30 +1,45 @@
 <div class="carrito-container">
-  <ul class="capsule-list">
-    @for(item of carrito ; track $index ; let i = $index) {
-    <li class="capsule">
-      <img
-        class="product-img"
-        src="{{ item.link || '' }}"
-        alt="{{ item.nombre }}"
-      />
+  @if(carrito.length > 0) {
+    <ul class="capsule-list">
+      @for(item of carrito ; track $index ; let i = $index) {
+      <li class="capsule">
+        <img
+          class="product-img"
+          src="{{ item.link || '' }}"
+          alt="{{ item.nombre }}"
+        />
 
-      <div class="info-product">
-        <h3 class="product-title">{{ item.nombre }}</h3>
-      </div>
-      <div class="product-price">
-        <span class="price">{{ item.precio || 'Consultar precio' }} $</span>
-      </div>
-      <button
-        class="remove-button"
-        (click)="eliminarproducto(i)"
-        aria-label="Eliminar producto del carrito"
-      ></button>
-    </li>
-    }
-  </ul>
+        <div class="info-product">
+          <h3 class="product-title">{{ item.nombre }}</h3>
+        </div>
+        <div class="product-price">
+          <span class="price">{{ item.precio || 'Consultar precio' }} $</span>
+        </div>
+        <button
+          class="remove-button"
+          (click)="eliminarproducto(i)"
+          aria-label="Eliminar producto del carrito"
+        ></button>
+      </li>
+      }
+    </ul>
 
-  <button (click)="clickboton()" class="boton-carrito">
-    Confirmar Solicitud
-  </button>
+    <button (click)="clickboton()" class="boton-carrito">
+      Confirmar Solicitud
+    </button>
+  } @else {
+    <div class="carrito-vacio">
+      <h2>Carrito vacío</h2>
+      <p>No tienes productos en tu carrito de compras</p>
+    </div>
+  }
 
 </div>
+
+
+@if(mostrarFormulario()) {
+  <app-formulario-compra
+  [mostrarFormulario]="mostrarFormulario"
+  ></app-formulario-compra>
+
+}

@@ -1,0 +1,58 @@
+<div class="formulario-overlay">
+  <div class="formulario-container">
+    <div class="formulario-header">
+      <h2>Formulario de Compra</h2>
+      <button type="button" class="close-btn" (click)="cerrarFormulario()">×</button>
+    </div>
+    
+    <form #compraForm="ngForm" class="formulario-content" (ngSubmit)="onSubmit(compraForm)">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          name="nombre" 
+          [(ngModel)]="nombre" 
+          required 
+          class="form-control"
+          placeholder="Ingrese su nombre">
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input 
+          type="text" 
+          id="apellido" 
+          name="apellido" 
+          [(ngModel)]="apellido" 
+          required 
+          class="form-control"
+          placeholder="Ingrese su apellido">
+      </div>
+
+      <div class="form-group">
+        <label for="ciudad">Ciudad de Envío:</label>
+        <select 
+          id="ciudad" 
+          name="ciudad" 
+          [(ngModel)]="ciudad" 
+          required 
+          class="form-control">
+          <option value="">Seleccione una ciudad</option>
+          <option *ngFor="let envio of envios" [value]="envio">{{ envio }}</option>
+        </select>
+      </div>
+
+      
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!compraForm.valid" (click)="confirmarCompra()">
+          Confirmar Compra
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
