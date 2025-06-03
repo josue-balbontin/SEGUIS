@@ -63,49 +63,6 @@ export class ArbolBinarioHistorial {
     }
   }
 
-
-  // TODO: Por si implementamos el borrar
-  eliminar(numero: number): void {
-    this.raiz = this.eliminarRecursivo(this.raiz, numero);
-  }
-
-  private eliminarRecursivo(nodo: NodoArbol | null, numero: number): NodoArbol | null {
-    if (nodo === null) {
-      return null;
-    }
-
-    if (numero < nodo.pedido.numero) {
-      nodo.izquierdo = this.eliminarRecursivo(nodo.izquierdo, numero);
-    } else if (numero > nodo.pedido.numero) {
-      nodo.derecho = this.eliminarRecursivo(nodo.derecho, numero);
-    } else {
-      
-      if (nodo.izquierdo === null && nodo.derecho === null) {
-        return null;
-      }
-      
-      if (nodo.izquierdo === null) {
-        return nodo.derecho;
-      }
-      if (nodo.derecho === null) {
-        return nodo.izquierdo;
-      }
-      
-      const sucesor = this.encontrarMinimo(nodo.derecho);
-      nodo.pedido = sucesor.pedido;
-      nodo.derecho = this.eliminarRecursivo(nodo.derecho, sucesor.pedido.numero);
-    }
-
-    return nodo;
-  }
-
-  private encontrarMinimo(nodo: NodoArbol): NodoArbol {
-    while (nodo.izquierdo !== null) {
-      nodo = nodo.izquierdo;
-    }
-    return nodo;
-  }
-
   estaVacio(): boolean {
     return this.raiz === null;
   }
