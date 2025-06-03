@@ -1,16 +1,6 @@
 import { Pedido } from '../../Modulos/pedido';
+import { NodoArbol } from './Nodo';
 
-export class NodoArbol {
-  pedido: Pedido;
-  izquierdo: NodoArbol | null;
-  derecho: NodoArbol | null;
-
-  constructor(pedido: Pedido) {
-    this.pedido = pedido;
-    this.izquierdo = null;
-    this.derecho = null;
-  }
-}
 
 export class ArbolBinarioHistorial {
   raiz: NodoArbol | null;
