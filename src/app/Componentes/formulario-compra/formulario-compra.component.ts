@@ -114,7 +114,7 @@ export class FormularioCompraComponent {
 
 // TODO : Implementar la lógica de confirmación de compra
   confirmarCompra() {
-    this.pedidos.crearPedido(this.nombre + " " + this.apellido,this.ciudad , this.carrito.getCarrito());
+    this.pedidos.crearPedido(this.nombre + " " + this.apellido, this.ciudad , this.carrito.getCarrito());
     this.carrito.vaciarCarrito();
     this.mostrarAviso.set(true);
     this.mostrarFormulario.set(false);

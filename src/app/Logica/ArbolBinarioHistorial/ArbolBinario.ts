@@ -141,4 +141,10 @@ export class ArbolBinarioHistorial {
       this.buscarPorCiudadRecursivo(nodo.derecho, ciudad, resultado);
     }
   }
+  
+  buscarCiudadPorPedido(numeroPedido: number): string | null {
+    const pedido = this.buscar(numeroPedido);
+    return pedido ? pedido.ciudadDestino : null;
+  }
+
 }
