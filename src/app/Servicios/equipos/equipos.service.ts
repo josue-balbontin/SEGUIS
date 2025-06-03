@@ -31,7 +31,36 @@ export class EquiposService {
       link: 'https://easyways.cl/storage/20180601113008masa-de-empanadas.jpg',
       estado: true,
       precio: 2.5
+    },
+     {
+      id: 4,
+      nombre: 'Chocolate caliente',
+      descripcion: 'Bebida caliente de chocolate',
+      marca: 'La mejor ',
+      link: 'https://www.novachef.es/media/images/chocolate-caliente-especias.jpg',
+      estado: true,
+      precio: 5
+    },
+    {
+      id: 5,
+      nombre: 'Café',
+      descripcion: 'Café recién hecho con aroma intenso',
+      marca: 'Café Orgánico',
+      link: 'https://prevencionar.com/wp-content/uploads/2024/06/taza_cafe.jpg',
+      estado: true,
+      precio: 3
+    },
+    {
+      id: 6,
+      nombre: 'Galletas',
+      descripcion: 'Galletas varias',
+      marca: 'Dulces Tentaciones',
+      link: 'https://veggiefestchicago.org/wp-content/uploads/2020/11/20-Blog-cookie.jpg',
+      estado: true,
+      precio: 2
     }
+
+
   ];
 
   constructor() { }
