@@ -58,7 +58,17 @@ export class EquiposService {
       link: 'https://veggiefestchicago.org/wp-content/uploads/2020/11/20-Blog-cookie.jpg',
       estado: true,
       precio: 2
+    },
+    {
+      id: 7,
+      nombre: 'Guñape',
+      descripcion: 'Guñape de queso camba ',
+      marca: 'Naranjita',
+      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzGDF3H3FlTy3fbnj68voUjLdE1JIWH6Tmxg&s',
+      estado: true,
+      precio: 1.8
     }
+    
 
 
   ];
@@ -67,30 +77,6 @@ export class EquiposService {
 
   getEquipos(): Equipos[] {
     return this.equipos;
-  }
-
-  addEquipo(nombre : string , descripcion : string , url : string ): void {
-    const nuevoEquipo: Equipos = {
-      id: this.equipos.length + 1,
-      nombre,
-      descripcion,
-      link: url,
-      estado: true
-    };
-    this.equipos.push(nuevoEquipo);
-  }
-
-  removeEquipo(equipo: Equipos): void {
-    const index = this.equipos.indexOf(equipo);
-    if (index > -1) {
-      this.equipos.splice(index, 1);
-    }
-  }
-
-  updateEquipo(equipo: Equipos, nombre: string, descripcion: string, url: string): void {
-    equipo.nombre = nombre;
-    equipo.descripcion = descripcion;
-    equipo.link = url;
   }
 
   getEquipoById(id: number): Equipos | undefined {
