@@ -33,6 +33,9 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stat-card::before {
@@ -56,36 +59,47 @@
   animation: shine 0.8s ease;
 }
 
-@keyframes shine {
-  0% { transform: translateX(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) rotate(45deg); }
+/* Colores específicos para cada tarjeta */
+.stat-card-blue {
+  background: linear-gradient(135deg, #52B6FF, #007bff);
+  box-shadow: 0 8px 16px rgba(82, 182, 255, 0.3);
 }
 
-.stat-card:nth-child(2) {
-  background: linear-gradient(135deg, #ffc107, #e0a800);
-  box-shadow: 0 8px 16px rgba(255, 193, 7, 0.2);
+.stat-card-blue:hover {
+  box-shadow: 0 12px 24px rgba(82, 182, 255, 0.4);
 }
 
-.stat-card:nth-child(2):hover {
-  box-shadow: 0 12px 24px rgba(255, 193, 7, 0.3);
+.stat-card-orange {
+  background: linear-gradient(135deg, #FF9F43, #e67e22);
+  box-shadow: 0 8px 16px rgba(255, 159, 67, 0.3);
 }
 
-.stat-card:nth-child(3) {
+.stat-card-orange:hover {
+  box-shadow: 0 12px 24px rgba(255, 159, 67, 0.4);
+}
+
+.stat-card-green {
   background: linear-gradient(135deg, #28a745, #1e7e34);
-  box-shadow: 0 8px 16px rgba(40, 167, 69, 0.2);
+  box-shadow: 0 8px 16px rgba(40, 167, 69, 0.3);
 }
 
-.stat-card:nth-child(3):hover {
-  box-shadow: 0 12px 24px rgba(40, 167, 69, 0.3);
+.stat-card-green:hover {
+  box-shadow: 0 12px 24px rgba(40, 167, 69, 0.4);
 }
 
-.stat-card:nth-child(4) {
-  background: linear-gradient(135deg, #17a2b8, #138496);
-  box-shadow: 0 8px 16px rgba(23, 162, 184, 0.2);
+.stat-card-purple {
+  background: linear-gradient(135deg, #6f42c1, #563d7c);
+  box-shadow: 0 8px 16px rgba(111, 66, 193, 0.3);
 }
 
-.stat-card:nth-child(4):hover {
-  box-shadow: 0 12px 24px rgba(23, 162, 184, 0.3);
+.stat-card-purple:hover {
+  box-shadow: 0 12px 24px rgba(111, 66, 193, 0.4);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  opacity: 0.9;
 }
 
 .stat-card h3 {
@@ -180,6 +194,34 @@
   letter-spacing: 0.5px;
 }
 
+/* Etiquetas de porcentaje completado */
+.completion-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.completion-0 {
+  background-color: #dc3545;
+  color: white;
+}
+
+.completion-low {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.completion-high {
+  background-color: #28a745;
+  color: white;
+}
+
 /* Barra de progreso */
 .progress-bar {
   width: 100%;
@@ -220,6 +262,48 @@
   margin: 0;
   font-weight: 600;
   color: #28a745;
+  font-size: 14px;
+}
+
+/* Animación shine */
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Estadísticas adicionales */
+.additional-stats {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-left: 4px solid #007bff;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 16px;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: #007bff;
+  background: #e3f2fd;
+  padding: 4px 12px;
+  border-radius: 20px;
   font-size: 14px;
 }
 

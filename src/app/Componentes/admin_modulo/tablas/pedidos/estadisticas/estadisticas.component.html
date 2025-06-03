@@ -1,39 +1,67 @@
 <div class="section-card">
   <h2>📊 Estadísticas del Sistema</h2>
-  
-  <!-- Resumen general -->
+    <!-- Resumen general -->
   <div class="stats-overview">
-    <div class="stat-card">
+    <div class="stat-card stat-card-blue">
+      <div class="stat-icon">📦</div>
       <h3>{{resumenSistema.totalPedidos || 0}}</h3>
       <p>Total de Pedidos</p>
     </div>
-    <div class="stat-card">
+    <div class="stat-card stat-card-orange">
+      <div class="stat-icon">⏳</div>
       <h3>{{resumenSistema.pedidosPendientes || 0}}</h3>
       <p>Pedidos Pendientes</p>
     </div>
-    <div class="stat-card">
+    <div class="stat-card stat-card-green">
+      <div class="stat-icon">✅</div>
       <h3>{{resumenSistema.pedidosEntregados || 0}}</h3>
       <p>Pedidos Entregados</p>
     </div>
-    <div class="stat-card">
+    <div class="stat-card stat-card-purple">
+      <div class="stat-icon">💰</div>
       <h3>${{resumenSistema.ingresosTotales | number:'1.2-2'}}</h3>
       <p>Ingresos Totales</p>
     </div>
   </div>
 
+  <!-- Estadísticas adicionales -->
+  <div class="additional-stats">
+    <div class="stat-item">
+      <span class="stat-label">🏆 Ciudad con más pedidos:</span>
+      <span class="stat-value">{{estadisticasAdicionales.ciudadMasPedidos}}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">💎 Ciudad con más ingresos:</span>
+      <span class="stat-value">{{estadisticasAdicionales.ciudadMasIngresos}}</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">📊 Promedio pedidos por ciudad:</span>
+      <span class="stat-value">{{estadisticasAdicionales.promedioPedidos}}</span>
+    </div>
+  </div>
   <!-- Estadísticas por ciudad -->
   <div class="city-stats">
-    <h3>Pedidos por Ciudad</h3>
+    <h3>📍 Estadísticas por Ciudad</h3>
     <div class="city-stats-grid">
       <div 
         *ngFor="let ciudadStat of estadisticasCiudades"
         class="city-stat-card">
         <h4>{{ciudadStat.ciudad}}</h4>
+        
+        <!-- Etiqueta de porcentaje completado -->
+        <div class="completion-badge" [ngClass]="{
+          'completion-0': ciudadStat.total === 0 || (ciudadStat.entregados / ciudadStat.total) * 100 === 0,
+          'completion-low': ciudadStat.total > 0 && (ciudadStat.entregados / ciudadStat.total) * 100 < 50,
+          'completion-high': ciudadStat.total > 0 && (ciudadStat.entregados / ciudadStat.total) * 100 >= 50
+        }">
+          {{ciudadStat.total > 0 ? ((ciudadStat.entregados / ciudadStat.total) * 100).toFixed(0) : 0}}%
+        </div>
+        
         <div class="city-numbers">
-          <p><strong>Total:</strong> {{ciudadStat.total}}</p>
-          <p><strong>Pendientes:</strong> {{ciudadStat.pendientes}}</p>
-          <p><strong>Entregados:</strong> {{ciudadStat.entregados}}</p>
-          <p><strong>Ingresos:</strong> ${{ciudadStat.ingresos | number:'1.2-2'}}</p>
+          <p><strong>📦 Total:</strong> {{ciudadStat.total}}</p>
+          <p><strong>⏳ Pendientes:</strong> {{ciudadStat.pendientes}}</p>
+          <p><strong>✅ Entregados:</strong> {{ciudadStat.entregados}}</p>
+          <p><strong>💰 Ingresos:</strong> ${{ciudadStat.ingresos | number:'1.2-2'}}</p>
         </div>
         <div class="progress-bar">
           <div 
