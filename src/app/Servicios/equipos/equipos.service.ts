@@ -31,37 +31,52 @@ export class EquiposService {
       link: 'https://easyways.cl/storage/20180601113008masa-de-empanadas.jpg',
       estado: true,
       precio: 2.5
+    },
+     {
+      id: 4,
+      nombre: 'Chocolate caliente',
+      descripcion: 'Bebida caliente de chocolate',
+      marca: 'La mejor ',
+      link: 'https://www.novachef.es/media/images/chocolate-caliente-especias.jpg',
+      estado: true,
+      precio: 5
+    },
+    {
+      id: 5,
+      nombre: 'Café',
+      descripcion: 'Café recién hecho con aroma intenso',
+      marca: 'Café Orgánico',
+      link: 'https://prevencionar.com/wp-content/uploads/2024/06/taza_cafe.jpg',
+      estado: true,
+      precio: 3
+    },
+    {
+      id: 6,
+      nombre: 'Galletas',
+      descripcion: 'Galletas varias',
+      marca: 'Dulces Tentaciones',
+      link: 'https://veggiefestchicago.org/wp-content/uploads/2020/11/20-Blog-cookie.jpg',
+      estado: true,
+      precio: 2
+    },
+    {
+      id: 7,
+      nombre: 'Guñape',
+      descripcion: 'Guñape de queso camba ',
+      marca: 'Naranjita',
+      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzGDF3H3FlTy3fbnj68voUjLdE1JIWH6Tmxg&s',
+      estado: true,
+      precio: 1.8
     }
+    
+
+
   ];
 
   constructor() { }
 
   getEquipos(): Equipos[] {
     return this.equipos;
-  }
-
-  addEquipo(nombre : string , descripcion : string , url : string ): void {
-    const nuevoEquipo: Equipos = {
-      id: this.equipos.length + 1,
-      nombre,
-      descripcion,
-      link: url,
-      estado: true
-    };
-    this.equipos.push(nuevoEquipo);
-  }
-
-  removeEquipo(equipo: Equipos): void {
-    const index = this.equipos.indexOf(equipo);
-    if (index > -1) {
-      this.equipos.splice(index, 1);
-    }
-  }
-
-  updateEquipo(equipo: Equipos, nombre: string, descripcion: string, url: string): void {
-    equipo.nombre = nombre;
-    equipo.descripcion = descripcion;
-    equipo.link = url;
   }
 
   getEquipoById(id: number): Equipos | undefined {

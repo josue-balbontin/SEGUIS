@@ -67,7 +67,7 @@ export class PedidosService {
   }
 
   buscarCiudadPorPedido(numeroPedido: number): string | null {
-    return this.hashMapPedidos.buscarCiudadPorPedido(numeroPedido);
+    return this.arbolHistorial.buscarCiudadPorPedido(numeroPedido);
   }
 
   obtenerEstadisticasPorCiudad(): any[] {
