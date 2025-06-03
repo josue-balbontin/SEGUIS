@@ -3,6 +3,8 @@ import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../Servicios/carritos/carrito.service';
 import { Router } from '@angular/router';
+import { PedidosService } from '../../Servicios/pedidos/pedidos.service';
+
 
 @Component({
   selector: 'app-formulario-compra',
@@ -14,6 +16,7 @@ export class FormularioCompraComponent {
 
   @Input() mostrarFormulario  : WritableSignal<boolean> =  signal(true);
   
+  @Input() mostrarAviso : WritableSignal<boolean> = signal(false);
 
   nombre : string = '';
   apellido : string = '';  envios : string[] = [
@@ -47,7 +50,7 @@ export class FormularioCompraComponent {
   numeroCuenta: string = '';
   codigoQR: string = '';
 
-  constructor( private carrito : CarritoService , private router : Router){};
+  constructor( private carrito : CarritoService , private router : Router , private pedidos : PedidosService){};
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -111,10 +114,10 @@ export class FormularioCompraComponent {
 
 // TODO : Implementar la lógica de confirmación de compra
   confirmarCompra() {
-
+    this.pedidos.crearPedido(this.nombre + " " + this.apellido,this.ciudad , this.carrito.getCarrito());
     this.carrito.vaciarCarrito();
-
-    this.router.navigate(['/home']);
+    this.mostrarAviso.set(true);
+    this.mostrarFormulario.set(false);
 
   }; 
 }
