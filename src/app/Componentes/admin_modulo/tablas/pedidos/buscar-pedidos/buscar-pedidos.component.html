@@ -1,0 +1,45 @@
+<div class="section-card">
+  <h2>🔍 Buscar Pedidos</h2>
+  
+  <!-- Mensajes de éxito y error -->
+  <div class="messages" *ngIf="mensajeExito || mensajeError">
+    <div class="success-message" *ngIf="mensajeExito">
+      ✅ {{mensajeExito}}
+    </div>
+    <div class="error-message" *ngIf="mensajeError">
+      ❌ {{mensajeError}}
+    </div>
+  </div>
+  
+  <div class="search-section">
+    <h3>Buscar por número de pedido</h3>
+    <div class="search-form">
+      <input 
+        type="number"
+        [(ngModel)]="numeroBusqueda"
+        placeholder="Número de pedido"
+        min="1"
+        class="search-input">
+      <button class="btn-primary" (click)="buscarPedidoPorNumero()">Buscar</button>
+      <button class="btn-secondary" (click)="limpiarBusqueda()">Limpiar</button>
+    </div>
+
+    <div class="search-result" *ngIf="pedidoEncontrado">
+      <div class="result-card">
+        <h4>Pedido #{{pedidoEncontrado.numero}} encontrado</h4>
+        <div class="result-details">
+          <p><strong>Cliente:</strong> {{pedidoEncontrado.cliente}}</p>
+          <p><strong>Ciudad:</strong> {{ciudadPedido}}</p>
+          <p><strong>Estado:</strong> 
+            <span class="estado-badge" [class]="pedidoEncontrado.estado.toLowerCase()">
+              {{pedidoEncontrado.estado}}
+            </span>
+          </p>
+          <p><strong>Equipos:</strong> {{obtenerEquiposPedido(pedidoEncontrado)}}</p>
+          <p><strong>Total:</strong> ${{pedidoEncontrado.total | number:'1.2-2'}}</p>
+          <p><strong>Fecha:</strong> {{formatearFecha(pedidoEncontrado.fecha)}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

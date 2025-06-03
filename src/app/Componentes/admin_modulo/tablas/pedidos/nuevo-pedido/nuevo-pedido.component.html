@@ -1,0 +1,81 @@
+<div class="section-card">
+  <h2>📝 Registrar Nuevo Pedido</h2>
+  
+  <!-- Mensajes de éxito y error -->
+  <div class="messages" *ngIf="mensajeExito || mensajeError">
+    <div class="success-message" *ngIf="mensajeExito">
+      ✅ {{mensajeExito}}
+    </div>
+    <div class="error-message" *ngIf="mensajeError">
+      ❌ {{mensajeError}}
+    </div>
+  </div>
+
+  <form class="pedido-form" (ngSubmit)="registrarPedido()">
+    
+    <!-- Información del cliente -->
+    <div class="form-group">
+      <label for="cliente">Cliente:</label>
+      <input 
+        type="text" 
+        id="cliente"
+        [(ngModel)]="nuevoPedido.cliente"
+        name="cliente"
+        placeholder="Nombre del cliente"
+        required>
+    </div>
+
+    <!-- Selección de ciudad -->
+    <div class="form-group">
+      <label for="ciudad">Ciudad de destino:</label>
+      <select 
+        id="ciudad"
+        [(ngModel)]="nuevoPedido.ciudadDestino"
+        name="ciudad"
+        required>
+        <option value="">Seleccione una ciudad</option>
+        <option *ngFor="let ciudad of ciudadesValidas" [value]="ciudad">
+          {{ciudad}}
+        </option>
+      </select>
+    </div>
+
+    <!-- Selección de equipos -->
+    <div class="form-group">
+      <label>Equipos a incluir:</label>
+      <div class="equipos-grid">
+        <div 
+          *ngFor="let equipo of equiposDisponibles"
+          class="equipo-item"
+          [class.selected]="isEquipoSeleccionado(equipo.id)"
+          (click)="toggleEquipoSeleccion(equipo.id)">
+          
+          <div class="equipo-checkbox">
+            <input 
+              type="checkbox"
+              [checked]="isEquipoSeleccionado(equipo.id)"
+              (change)="toggleEquipoSeleccion(equipo.id)">
+          </div>
+          
+          <div class="equipo-info">
+            <h4>{{equipo.nombre}}</h4>
+            <p class="equipo-marca">{{equipo.marca}}</p>
+            <p class="equipo-precio">${{equipo.precio | number:'1.2-2'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total del pedido -->
+    <div class="total-section" *ngIf="nuevoPedido.equiposSeleccionados.length > 0">
+      <h3>Total: ${{obtenerTotalPedido() | number:'1.2-2'}}</h3>
+      <p>{{nuevoPedido.equiposSeleccionados.length}} equipo(s) seleccionado(s)</p>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Registrar Pedido</button>
+      <button type="button" class="btn-secondary" (click)="limpiarFormulario()">Limpiar</button>
+    </div>
+  </form>
+</div>

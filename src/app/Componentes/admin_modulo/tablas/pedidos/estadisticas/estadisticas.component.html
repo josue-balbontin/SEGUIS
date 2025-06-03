@@ -1,0 +1,50 @@
+<div class="section-card">
+  <h2>📊 Estadísticas del Sistema</h2>
+  
+  <!-- Resumen general -->
+  <div class="stats-overview">
+    <div class="stat-card">
+      <h3>{{resumenSistema.totalPedidos || 0}}</h3>
+      <p>Total de Pedidos</p>
+    </div>
+    <div class="stat-card">
+      <h3>{{resumenSistema.pedidosPendientes || 0}}</h3>
+      <p>Pedidos Pendientes</p>
+    </div>
+    <div class="stat-card">
+      <h3>{{resumenSistema.pedidosEntregados || 0}}</h3>
+      <p>Pedidos Entregados</p>
+    </div>
+    <div class="stat-card">
+      <h3>${{resumenSistema.ingresosTotales | number:'1.2-2'}}</h3>
+      <p>Ingresos Totales</p>
+    </div>
+  </div>
+
+  <!-- Estadísticas por ciudad -->
+  <div class="city-stats">
+    <h3>Pedidos por Ciudad</h3>
+    <div class="city-stats-grid">
+      <div 
+        *ngFor="let ciudadStat of estadisticasCiudades"
+        class="city-stat-card">
+        <h4>{{ciudadStat.ciudad}}</h4>
+        <div class="city-numbers">
+          <p><strong>Total:</strong> {{ciudadStat.total}}</p>
+          <p><strong>Pendientes:</strong> {{ciudadStat.pendientes}}</p>
+          <p><strong>Entregados:</strong> {{ciudadStat.entregados}}</p>
+          <p><strong>Ingresos:</strong> ${{ciudadStat.ingresos | number:'1.2-2'}}</p>
+        </div>
+        <div class="progress-bar">
+          <div 
+            class="progress-fill"
+            [style.width.%]="ciudadStat.total > 0 ? (ciudadStat.entregados / ciudadStat.total) * 100 : 0">
+          </div>
+        </div>
+        <p class="completion-rate">
+          {{ciudadStat.total > 0 ? ((ciudadStat.entregados / ciudadStat.total) * 100).toFixed(1) : 0}}% completado
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
