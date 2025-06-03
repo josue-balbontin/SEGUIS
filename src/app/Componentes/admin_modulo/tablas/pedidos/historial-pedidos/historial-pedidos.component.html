@@ -1,0 +1,58 @@
+<div class="section-card">
+  <h2>📋 Historial de Pedidos (Ordenado por Número)</h2>
+  
+  <!-- Mensajes de éxito y error -->
+  <div class="messages" *ngIf="mensajeExito || mensajeError">
+    <div class="success-message" *ngIf="mensajeExito">
+      ✅ {{mensajeExito}}
+    </div>
+    <div class="error-message" *ngIf="mensajeError">
+      ❌ {{mensajeError}}
+    </div>
+  </div>
+  
+  <div class="filters">
+    <input 
+      type="text"
+      [(ngModel)]="clienteBusqueda"
+      placeholder="Buscar por cliente..."
+      class="search-input">
+    <button class="btn-secondary" (click)="buscarPedidosPorCliente()">Buscar</button>
+    <button class="btn-secondary" (click)="mostrarTodos()">Ver Todos</button>
+  </div>
+
+  <div class="table-container" *ngIf="todosPedidos.length > 0">
+    <table class="pedidos-table">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Cliente</th>
+          <th>Ciudad</th>
+          <th>Equipos</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of todosPedidos" [class.entregado]="pedido.estado === 'Entregado'">
+          <td class="numero-pedido">#{{pedido.numero}}</td>
+          <td>{{pedido.cliente}}</td>
+          <td>{{pedido.ciudadDestino}}</td>
+          <td class="equipos-cell">{{obtenerEquiposPedido(pedido)}}</td>
+          <td class="precio-cell">${{pedido.total | number:'1.2-2'}}</td>
+          <td>
+            <span class="estado-badge" [class]="pedido.estado.toLowerCase()">
+              {{pedido.estado}}
+            </span>
+          </td>
+          <td>{{formatearFecha(pedido.fecha)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="todosPedidos.length === 0">
+    <p>No hay pedidos registrados</p>
+  </div>
+</div>

@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { Equipos } from '../../Modulos/equipos';
 import { CarritoService } from '../../Servicios/carritos/carrito.service';
 import { FormularioCompraComponent } from '../formulario-compra/formulario-compra.component';
+import { AvisoComponent } from '../aviso/aviso.component';
 
 @Component({
   selector: 'app-carrito',
   standalone: true ,
-  imports: [CommonModule,FormsModule , FormularioCompraComponent ],
+  imports: [CommonModule,FormsModule , FormularioCompraComponent , AvisoComponent ],
   templateUrl: './carrito.component.html',
   styleUrl: './carrito.component.css'
 })
@@ -21,6 +22,7 @@ export class CarritoComponent {
   hoy : Date= new Date();
 
   mostrarFormulario: WritableSignal<boolean> = signal(false);
+  mostrarAviso: WritableSignal<boolean> = signal(false);
 
   carrito: Equipos[] = [];
 

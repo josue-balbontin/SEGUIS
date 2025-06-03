@@ -72,8 +72,10 @@ export class PedidosService {
 
   obtenerEstadisticasPorCiudad(): any[] {
     const ciudades = this.obtenerCiudadesValidas();
+    const todosPedidos = this.obtenerTodosPedidosOrdenados();
+    
     return ciudades.map(ciudad => {
-      const pedidosCiudad = this.hashMapPedidos.obtenerTodosPedidosCiudad(ciudad);
+      const pedidosCiudad = todosPedidos.filter((p: Pedido) => p.ciudadDestino === ciudad);
       const pendientes = pedidosCiudad.filter((p: Pedido) => !p.entregado).length;
       const entregados = pedidosCiudad.filter((p: Pedido) => p.entregado).length;
       const ingresos = pedidosCiudad

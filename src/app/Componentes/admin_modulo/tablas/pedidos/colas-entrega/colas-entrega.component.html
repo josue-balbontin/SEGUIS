@@ -1,0 +1,65 @@
+<div class="section-card">
+  <h2>🚚 Gestión de Entregas por Ciudad</h2>
+  
+  <!-- Mensajes de éxito y error -->
+  <div class="messages" *ngIf="mensajeExito || mensajeError">
+    <div class="success-message" *ngIf="mensajeExito">
+      ✅ {{mensajeExito}}
+    </div>
+    <div class="error-message" *ngIf="mensajeError">
+      ❌ {{mensajeError}}
+    </div>
+  </div>
+  
+  <div class="ciudad-selector">
+    <label for="ciudadCola">Seleccionar ciudad:</label>
+    <select 
+      id="ciudadCola"
+      [(ngModel)]="ciudadSeleccionada"
+      (change)="actualizarColaCiudad()">
+      <option *ngFor="let ciudad of ciudadesValidas" [value]="ciudad">
+        {{ciudad}}
+      </option>
+    </select>
+  </div>
+
+  <div class="cola-actions">
+    <button 
+      class="btn-primary"
+      (click)="procesarSiguienteEntrega()"
+      [disabled]="pedidosPorCiudad.length === 0">
+      ✅ Procesar Siguiente Entrega
+    </button>
+    <p class="queue-info">
+      {{pedidosPorCiudad.length}} pedido(s) en cola para {{ciudadSeleccionada}}
+    </p>
+  </div>
+
+  <div class="queue-container" *ngIf="pedidosPorCiudad.length > 0">
+    <h3>Cola de entrega para {{ciudadSeleccionada}}</h3>
+    <div class="queue-items">
+      <div 
+        *ngFor="let pedido of pedidosPorCiudad; let i = index"
+        class="queue-item"
+        [class.next-delivery]="i === 0">
+        
+        <div class="queue-position">
+          <span class="position-number">{{i + 1}}</span>
+          <span class="next-label" *ngIf="i === 0">SIGUIENTE</span>
+        </div>
+        
+        <div class="pedido-details">
+          <h4>Pedido #{{pedido.numero}}</h4>
+          <p><strong>Cliente:</strong> {{pedido.cliente}}</p>
+          <p><strong>Equipos:</strong> {{obtenerEquiposPedido(pedido)}}</p>
+          <p><strong>Total:</strong> ${{pedido.total | number:'1.2-2'}}</p>
+          <p><strong>Fecha:</strong> {{formatearFecha(pedido.fecha)}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-queue" *ngIf="pedidosPorCiudad.length === 0">
+    <p>No hay pedidos pendientes para {{ciudadSeleccionada}}</p>
+  </div>
+</div>

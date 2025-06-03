@@ -1,0 +1,205 @@
+/* Mensajes */
+.messages {
+  margin-bottom: 20px;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid #28a745;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid #dc3545;
+  margin-bottom: 10px;
+}
+
+/* Tarjetas de sección */
+.section-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.section-card h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+
+/* Formulario de pedido */
+.pedido-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Grid de equipos */
+.equipos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.equipo-item {
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+}
+
+.equipo-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.equipo-item.selected {
+  border-color: #28a745;
+  background: #f8fff9;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.equipo-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.equipo-info h4 {
+  margin: 0 0 4px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.equipo-marca {
+  margin: 0 0 8px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.equipo-precio {
+  margin: 0;
+  color: #007bff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Sección total */
+.total-section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+  text-align: center;
+}
+
+.total-section h3 {
+  margin: 0 0 8px 0;
+  color: #007bff;
+  font-size: 24px;
+}
+
+.total-section p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Acciones del formulario */
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .equipos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}

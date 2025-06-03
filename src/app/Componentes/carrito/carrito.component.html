@@ -40,6 +40,15 @@
 @if(mostrarFormulario()) {
   <app-formulario-compra
   [mostrarFormulario]="mostrarFormulario"
+  [mostrarAviso]="mostrarAviso"
   ></app-formulario-compra>
 
+}
+
+@if(mostrarAviso()){
+  <app-aviso
+  [titulo]="'¡Compra Exitosa!'"
+  [subtitulo]="'Gracias por tu compra'"
+  [mensaje]="'Tu pedido ha sido procesado correctamente'"
+  ></app-aviso>
 }
