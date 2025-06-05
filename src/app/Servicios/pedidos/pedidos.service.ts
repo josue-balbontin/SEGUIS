@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ArbolBinarioHistorial } from '../../Logica/ArbolBinarioHistorial/ArbolBinario';
+import { HashMapHistorial } from '../../Logica/Hashmap Hitorial/HashmapH';
 import { HashMapPedidos } from '../../Logica/HashMapPedidos/HashMap';
 import { Pedido } from '../../Modulos/pedido';
 import { Equipos } from '../../Modulos/equipos';
@@ -8,12 +8,12 @@ import { Equipos } from '../../Modulos/equipos';
   providedIn: 'root'
 })
 export class PedidosService {
-  private arbolHistorial: ArbolBinarioHistorial;
+  private arbolHistorial: HashMapHistorial;
   private hashMapPedidos: HashMapPedidos;
   private contadorPedidos: number = 1000;
 
   constructor() {
-    this.arbolHistorial = new ArbolBinarioHistorial();
+    this.arbolHistorial = new HashMapHistorial();
     this.hashMapPedidos = new HashMapPedidos();
   }
   crearPedido(cliente: string, ciudadDestino: string, equipos: Equipos[]): Pedido {
@@ -40,7 +40,7 @@ export class PedidosService {
   }
 
   obtenerTodosPedidosOrdenados(): Pedido[] {
-    return this.arbolHistorial.InOrder();
+    return this.arbolHistorial.obtenertodoslospedidos();
   }
 
   buscarPedidoPorNumero(numero: number): Pedido | null {
