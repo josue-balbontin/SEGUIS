@@ -8,5 +8,5 @@ export interface Pedido {
   entregado: boolean;
   estado: string; // 'Pendiente' | 'Entregado'
   equipos: Equipos[]; // Array de equipos del pedido con tipado correcto
-  total?: number; // Total del pedido (opcional)
+  total?: number; 
 }

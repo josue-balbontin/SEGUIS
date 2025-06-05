@@ -42,19 +42,9 @@ export class Cola {
     return pedidoRemoido;
   }
 
-  verFrente(): Pedido | null {
-    if (this.estaVacia()) {
-      return null;
-    }
-    return this.frente!.pedido;
-  }
 
   estaVacia(): boolean {
     return this.frente === null;
-  }
-
-  obtenerTamaño(): number {
-    return this.tamaño;
   }
 
   obtenerTodosPedidos(): Pedido[] {
@@ -69,20 +59,6 @@ export class Cola {
     return resultado;
   }
 
-
-  marcarComoEntregado(numero: number): boolean {
-    let actual = this.frente;
-    
-    while (actual !== null) {
-      if (actual.pedido.numero === numero) {
-        actual.pedido.entregado = true;
-        return true;
-      }
-      actual = actual.siguiente;
-    }
-    
-    return false;
-  }
 
   contienePedido(numeroPedido: number): boolean {
     let actual = this.frente;

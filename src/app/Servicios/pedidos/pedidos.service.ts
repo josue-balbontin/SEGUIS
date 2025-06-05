@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HashMapHistorial } from '../../Logica/Hashmap Hitorial/HashmapH';
+import { HashMapHistorial } from '../../Logica/Hashmap Historial/HashmapH';
 import { HashMapPedidos } from '../../Logica/HashMapPedidos/HashMap';
 import { Pedido } from '../../Modulos/pedido';
 import { Equipos } from '../../Modulos/equipos';
@@ -8,12 +8,12 @@ import { Equipos } from '../../Modulos/equipos';
   providedIn: 'root'
 })
 export class PedidosService {
-  private arbolHistorial: HashMapHistorial;
+  private Hashmaphistorial: HashMapHistorial;
   private hashMapPedidos: HashMapPedidos;
   private contadorPedidos: number = 1000;
 
   constructor() {
-    this.arbolHistorial = new HashMapHistorial();
+    this.Hashmaphistorial = new HashMapHistorial();
     this.hashMapPedidos = new HashMapPedidos();
   }
   crearPedido(cliente: string, ciudadDestino: string, equipos: Equipos[]): Pedido {
@@ -32,7 +32,7 @@ export class PedidosService {
       total
     };
 
-    this.arbolHistorial.insertar(nuevoPedido);
+    this.Hashmaphistorial.insertar(nuevoPedido);
     
     this.hashMapPedidos.agregarPedido(nuevoPedido);
 
@@ -40,11 +40,11 @@ export class PedidosService {
   }
 
   obtenerTodosPedidosOrdenados(): Pedido[] {
-    return this.arbolHistorial.obtenertodoslospedidos();
+    return this.Hashmaphistorial.obtenertodoslospedidos();
   }
 
   buscarPedidoPorNumero(numero: number): Pedido | null {
-    return this.arbolHistorial.buscar(numero);
+    return this.Hashmaphistorial.buscar(numero);
   }
 
   obtenerPedidosPorCiudad(ciudad: string): Pedido[] {
@@ -58,7 +58,7 @@ export class PedidosService {
     return pedido;
   }
   buscarPedidosPorCliente(cliente: string): Pedido[] {
-    return this.arbolHistorial.buscarPorCliente(cliente);
+    return this.Hashmaphistorial.buscarPorCliente(cliente);
   }
 
   // Métodos adicionales para el componente
@@ -67,7 +67,7 @@ export class PedidosService {
   }
 
   buscarCiudadPorPedido(numeroPedido: number): string | null {
-    return this.arbolHistorial.buscarCiudadPorPedido(numeroPedido);
+    return this.Hashmaphistorial.buscarCiudadPorPedido(numeroPedido);
   }
 
   obtenerEstadisticasPorCiudad(): any[] {

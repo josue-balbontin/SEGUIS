@@ -72,22 +72,9 @@ export class HashMapPedidos {
     return pedido;
   }
 
-  // Métodos adicionales para el servicio
+
   obtenerCiudades(): string[] {
     return [...this.ciudades];
   }
 
-  buscarCiudadPorPedido(numeroPedido: number): string | null {
-    for (const ciudad of this.ciudades) {
-      const cola = this.obtenerColaCiudad(ciudad);
-      if (cola && cola.contienePedido(numeroPedido)) {
-        return ciudad;
-      }
-    }
-    return null;
-  }
-
-  obtenerTodosPedidosCiudad(ciudad: string): Pedido[] {
-    return this.obtenerPedidosCiudad(ciudad);
-  }
 }
