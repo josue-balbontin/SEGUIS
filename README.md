@@ -38,7 +38,7 @@ SEGUIS/
 │   │   │   │           └── nuevo-pedido/           # Registro de nuevos pedidos
 │   │   │   ├── aviso/          # Sistema de notificaciones
 │   │   │   ├── carrito/       # Sistema de carrito de compras
-│   │   │   ├── formulario-compra/ # Proceso de compra (legacy)
+│   │   │   ├── formulario-compra/ # Proceso de compra
 │   │   │   ├── home/            # Página principal
 │   │   │   │   └── grupoequipos/ # Catálogo de productos
 │   │   │   ├── navbar/          # Barra de navegación
