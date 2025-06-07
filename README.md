@@ -1,5 +1,7 @@
 # SEGUIS - Sistema de Seguimiento de Pedidos por Número de Seguimiento y Entrega por Ciudad
 
+Estudiantes: josue balbontin , Emanuel Oly y Fernando Terrazas
+
 ## Instalación y Ejecución
 
 1. Asegúrate de tener instalado **Node.js** y **Angular CLI**.
@@ -119,7 +121,7 @@ La empresa de logística necesita gestionar de manera eficiente el recorrido de 
 
 ### 🔍 Consulta de Ciudad por Número de Seguimiento
 - Dado un número de seguimiento, el sistema debe reportar de forma eficiente la ciudad de destino que figura en el historial
-- Al no contar con un backend ni base de datos, toda la información se maneja en memoria, usando dos hashmaps que se actualizan conforme se registran, entregan o consultan pedidos
+- Al no contar con un backend ni base de datos, toda la información se maneja en memoria, usando dos hashmaps que se actualizan conforme se registran, entregan o consultan pedidos. Esto permite demostrar claramente las propiedades de acceso rápido y ordenación natural de claves numéricas en tablas hash, y el comportamiento FIFO con desencolado en tiempo constante en la cola de entrega.
 
 ## 🏗️ Análisis Funcional
 
@@ -242,4 +244,3 @@ Al asignar números de seguimiento de manera incremental (1001, 1002, 1003, …)
 La cola por ciudad está diseñada para que su operación de desencolado (eliminar el primer pedido) sea **O(1)**. Esto evita penalizaciones en el rendimiento y ahorro de recursos.
 
 ---
-
