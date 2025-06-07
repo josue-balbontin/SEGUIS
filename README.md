@@ -20,6 +20,7 @@
 
 ## Organización del Proyecto
 
+```
 SEGUIS/
 ├── .vscode/                     # Configuración Visual Studio Code
 ├── public/                      # Recursos estáticos públicos
@@ -71,6 +72,7 @@ SEGUIS/
 ├── tsconfig.app.json          # Config TypeScript para la app
 ├── tsconfig.json              # Configuración base TypeScript
 └── tsconfig.spec.json         # Config TypeScript para tests
+```
 
 ## 📋 Introducción
 
