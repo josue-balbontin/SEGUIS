@@ -60,16 +60,5 @@ export class Cola {
   }
 
 
-  contienePedido(numeroPedido: number): boolean {
-    let actual = this.frente;
-    
-    while (actual !== null) {
-      if (actual.pedido.numero === numeroPedido) {
-        return true;
-      }
-      actual = actual.siguiente;
-    }
-    
-    return false;
-  }
+
 }
