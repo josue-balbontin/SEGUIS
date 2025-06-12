@@ -37,8 +37,6 @@ export class BuscarPedidosComponent implements OnInit {
     this.pedidoEncontrado = this.pedidosService.buscarPedidoPorNumero(this.numeroBusqueda);
     
     if (this.pedidoEncontrado) {
-      // Buscar la ciudad en el HashMap
-      this.ciudadPedido = this.pedidosService.buscarCiudadPorPedido(this.numeroBusqueda);
       this.mensajeExito = `Pedido #${this.numeroBusqueda} encontrado`;
     } else {
       this.pedidoEncontrado = null;

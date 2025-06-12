@@ -66,9 +66,7 @@ export class PedidosService {
     return this.hashMapPedidos.obtenerCiudades();
   }
 
-  buscarCiudadPorPedido(numeroPedido: number): string | null {
-    return this.Hashmaphistorial.buscarCiudadPorPedido(numeroPedido);
-  }
+
 
   obtenerEstadisticasPorCiudad(): any[] {
     const ciudades = this.obtenerCiudadesValidas();

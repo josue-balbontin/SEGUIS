@@ -16,16 +16,6 @@ export class HashMapHistorial {
     this.tabla.push(pedido);
   }
 
-  public buscarCiudadPorPedido(numeroPedido: number): string | null {
-    const index = this.funcionHash(numeroPedido);
-    if (index >= 0 && index < this.tabla.length) {
-      const pedido = this.tabla[index];
-      if (pedido) {
-        return pedido.ciudadDestino;
-      }
-    }
-    return null;
-  }
 
   public obtenertodoslospedidos(): Pedido[] {
     return this.tabla.filter(pedido => pedido !== null) as Pedido[];

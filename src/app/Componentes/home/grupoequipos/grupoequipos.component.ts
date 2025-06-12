@@ -10,8 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class GrupoequiposComponent {
 
- // @Input() categoria: string = ''; 
- //  @Input() producto: string = '';
+
   productos: Equipos[] = [];
 
   constructor(private servicio: EquiposService) { 
